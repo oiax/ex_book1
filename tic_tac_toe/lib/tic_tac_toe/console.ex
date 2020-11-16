@@ -17,13 +17,40 @@ defmodule TicTacToe.Console do
       |> String.trim()
       |> String.downcase()
 
-    case move do
-      "quit" -> System.halt(0)
-      "exit" -> System.halt(0)
-      _ -> IO.puts(move)
+    case parse_move(move) do
+      :quit -> System.halt(0)
+      {x, y} when is_integer(x) and is_integer(y) -> IO.inspect({x, y})
+      _ -> IO.puts("Syntax error.")
     end
 
     Process.send(__MODULE__, :process_command, [])
     {:noreply, state}
   end
+
+  defp parse_move("quit"), do: :quit
+  defp parse_move("exit"), do: :quit
+
+  defp parse_move(move) do
+    move
+    |> String.split()
+    |> do_parse_move()
+  end
+
+  defp do_parse_move([x, y]) do
+    x =
+      case Integer.parse(x) do
+        {n, ""} -> n - 1
+        _ -> nil
+      end
+
+    y =
+      case Integer.parse(y) do
+        {n, ""} -> n - 1
+        _ -> nil
+      end
+
+    {x, y}
+  end
+
+  defp do_parse_move(_), do: :error
 end
