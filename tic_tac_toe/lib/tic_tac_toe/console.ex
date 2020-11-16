@@ -37,19 +37,14 @@ defmodule TicTacToe.Console do
   end
 
   defp do_parse_move([x, y]) do
-    x =
-      case Integer.parse(x) do
+    [x, y]
+    |> Enum.map(fn e ->
+      case Integer.parse(e) do
         {n, ""} -> n - 1
         _ -> nil
       end
-
-    y =
-      case Integer.parse(y) do
-        {n, ""} -> n - 1
-        _ -> nil
-      end
-
-    {x, y}
+    end)
+    |> List.to_tuple()
   end
 
   defp do_parse_move(_), do: :error
