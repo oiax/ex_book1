@@ -1,7 +1,19 @@
 defmodule TicTacToe.Game do
   use Agent
 
+  @initial_grid [
+    [:b, :b, :b],
+    [:b, :b, :b],
+    [:b, :b, :b]
+  ]
+
   def start_link(_arg) do
-    Agent.start_link(fn -> %{} end, name: __MODULE__)
+    state = %{
+      grid: @initial_grid
+    }
+
+    Agent.start_link(fn -> state end, name: __MODULE__)
   end
+
+  def get_grid, do: Agent.get(__MODULE__, & &1.grid)
 end
