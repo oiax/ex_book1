@@ -30,7 +30,7 @@ defmodule TicTacToe.Game do
 
   defp put_mark_in_grid(rows, x, y, mark) do
     List.update_at(rows, x, fn cells ->
-      List.update_at(cells, y, fn _ -> mark end)
+      List.update_at(cells, y, fn :b -> mark end)
     end)
   end
 end

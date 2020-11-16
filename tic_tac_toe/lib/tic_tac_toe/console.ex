@@ -24,7 +24,7 @@ defmodule TicTacToe.Console do
 
     case parse_move(move) do
       :quit -> System.halt(0)
-      {x, y} when is_integer(x) and is_integer(y) -> Game.put_mark(x, y)
+      {x, y} when is_integer(x) and is_integer(y) -> move(x, y)
       _ -> IO.puts("Syntax error.")
     end
 
@@ -62,5 +62,15 @@ defmodule TicTacToe.Console do
     grid = Game.get_grid()
     IO.puts(Grid.render(grid))
     IO.puts("\n")
+  end
+
+  defp move(x, y) do
+    grid = Game.get_grid()
+
+    if Grid.valid_move?(grid, x, y) do
+      Game.put_mark(x, y)
+    else
+      IO.puts("Invalid move")
+    end
   end
 end
