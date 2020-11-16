@@ -24,7 +24,7 @@ defmodule TicTacToe.Console do
 
     case parse_move(move) do
       :quit -> System.halt(0)
-      {x, y} when is_integer(x) and is_integer(y) -> IO.inspect({x, y})
+      {x, y} when is_integer(x) and is_integer(y) -> Game.put_mark(x, y)
       _ -> IO.puts("Syntax error.")
     end
 

@@ -1,5 +1,6 @@
 defmodule TicTacToe.Game do
   use Agent
+  alias TicTacToe.Player
 
   @initial_grid [
     [:b, :b, :b],
@@ -19,4 +20,10 @@ defmodule TicTacToe.Game do
   def get_grid, do: Agent.get(__MODULE__, & &1.grid)
 
   def get_turn, do: Agent.get(__MODULE__, &(&1.turn))
+
+  def put_mark(x, y) when is_integer(x) and is_integer(y) do
+    Agent.update(__MODULE__, fn state ->
+      %{state | turn: Player.next(state.turn)}
+    end)
+  end
 end
