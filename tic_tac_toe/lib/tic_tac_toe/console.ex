@@ -59,6 +59,7 @@ defmodule TicTacToe.Console do
   defp do_parse_move(_), do: :error
 
   defp refresh_screen do
+    IO.puts("\e[2J")
     grid = Game.get_grid()
     IO.puts(Grid.render(grid))
     IO.puts("\n")
