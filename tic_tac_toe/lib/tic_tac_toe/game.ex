@@ -11,7 +11,8 @@ defmodule TicTacToe.Game do
   def start_link(_arg) do
     state = %{
       grid: @initial_grid,
-      turn: :o
+      turn: :o,
+      last_error: nil
     }
 
     Agent.start_link(fn -> state end, name: __MODULE__)
@@ -31,6 +32,16 @@ defmodule TicTacToe.Game do
   defp put_mark_in_grid(rows, x, y, mark) do
     List.update_at(rows, x, fn cells ->
       List.update_at(cells, y, fn :b -> mark end)
+    end)
+  end
+
+  def set_last_error(message) do
+    Agent.update(__MODULE__, fn state -> %{state | last_error: message} end)
+  end
+
+  def take_last_error do
+    Agent.get_and_update(__MODULE__, fn state ->
+      {state.last_error, %{state | last_error: nil}}
     end)
   end
 end
