@@ -2,6 +2,7 @@ defmodule TicTacToe.Console do
   use GenServer
   alias TicTacToe.Game
   alias TicTacToe.Grid
+  alias TicTacToe.Player
 
   def start_link(_arg) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -16,7 +17,7 @@ defmodule TicTacToe.Console do
     refresh_screen()
 
     move =
-      "Enter your move> "
+      get_prompt()
       |> IO.gets()
       |> String.trim()
       |> String.downcase()
@@ -29,6 +30,10 @@ defmodule TicTacToe.Console do
 
     Process.send(__MODULE__, :process_command, [])
     {:noreply, state}
+  end
+
+  defp get_prompt do
+    "Player " <> Player.to_string(Game.get_turn()) <> ", enter your move> "
   end
 
   defp parse_move("quit"), do: :quit
