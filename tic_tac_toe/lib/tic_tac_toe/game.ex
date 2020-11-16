@@ -23,7 +23,14 @@ defmodule TicTacToe.Game do
 
   def put_mark(x, y) when is_integer(x) and is_integer(y) do
     Agent.update(__MODULE__, fn state ->
-      %{state | turn: Player.next(state.turn)}
+      new_grid = put_mark_in_grid(state.grid, x, y, state.turn)
+      %{state | grid: new_grid, turn: Player.next(state.turn)}
+    end)
+  end
+
+  defp put_mark_in_grid(rows, x, y, mark) do
+    List.update_at(rows, x, fn cells ->
+      List.update_at(cells, y, fn _ -> mark end)
     end)
   end
 end
