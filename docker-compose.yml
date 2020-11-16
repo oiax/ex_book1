@@ -1,0 +1,7 @@
+version: "3"
+services:
+  ex_book1:
+    build: .
+    volumes:
+      - .:/ex_book1
+    working_dir: /ex_book1
