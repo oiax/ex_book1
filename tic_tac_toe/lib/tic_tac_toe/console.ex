@@ -17,7 +17,12 @@ defmodule TicTacToe.Console do
       |> String.trim()
       |> String.downcase()
 
-    IO.puts(move)
+    case move do
+      "quit" -> System.halt(0)
+      "exit" -> System.halt(0)
+      _ -> IO.puts(move)
+    end
+
     Process.send(__MODULE__, :process_command, [])
     {:noreply, state}
   end
