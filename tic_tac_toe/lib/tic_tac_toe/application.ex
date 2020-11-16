@@ -8,7 +8,8 @@ defmodule TicTacToe.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {TicTacToe.Game, nil}
+      {TicTacToe.Game, nil},
+      {TicTacToe.Console, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
