@@ -30,7 +30,7 @@ defmodule TicTacToe.Grid do
   def draw?(grid) do
     grid
     |> List.flatten()
-    |> Enum.all?(&(&1 in [:x, :o]))
+    |> Enum.all?(&(&1 in [:o, :x]))
   end
 
   def get_winner(grid) do
@@ -38,7 +38,7 @@ defmodule TicTacToe.Grid do
 
     line =
       Enum.find(lines, fn line ->
-        line == [:x, :x, :x] or line == [:o, :o, :o]
+        line == [:o, :o, :o] or line == [:x, :x, :x]
       end)
 
     if line, do: List.first(line), else: nil
