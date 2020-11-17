@@ -32,6 +32,7 @@ defmodule TicTacToe.Console do
       _ -> Game.set_last_error("Syntax error.")
     end
 
+    judge_result()
     Process.send(__MODULE__, :process_command, [])
     {:noreply, state}
   end
@@ -84,5 +85,27 @@ defmodule TicTacToe.Console do
     else
       Game.set_last_error("Invalid move")
     end
+  end
+
+  defp judge_result do
+    grid = Game.get_grid()
+
+    cond do
+      winner = Grid.get_winner(grid) -> display_winner(winner)
+      Grid.draw?(grid) -> draw()
+      true -> Process.send(__MODULE__, :process_command, [])
+    end
+  end
+
+  defp draw do
+    refresh_screen()
+    IO.puts("Draw.")
+    System.halt(0)
+  end
+
+  defp display_winner(winner) do
+    refresh_screen()
+    IO.puts("Player " <> Player.to_string(winner) <> " wins!")
+    System.halt(0)
   end
 end
