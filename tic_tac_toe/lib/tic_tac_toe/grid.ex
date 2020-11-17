@@ -26,4 +26,10 @@ defmodule TicTacToe.Grid do
     |> Enum.at(x)
     |> Enum.at(y)
   end
+
+  def draw?(grid) do
+    grid
+    |> List.flatten()
+    |> Enum.all?(&(&1 in [:x, :o]))
+  end
 end
