@@ -1,5 +1,6 @@
 defmodule TicTacToe.Game do
   use Agent
+  import TicTacToe, only: [debug: 1, info: 1], warn: false
   alias TicTacToe.Player
 
   @initial_grid [
@@ -14,6 +15,8 @@ defmodule TicTacToe.Game do
       turn: :o,
       last_error: nil
     }
+
+    info("The game agent started.")
 
     Agent.start_link(fn -> state end, name: __MODULE__)
   end

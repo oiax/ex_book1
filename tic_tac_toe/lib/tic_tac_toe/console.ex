@@ -1,5 +1,6 @@
 defmodule TicTacToe.Console do
   use GenServer
+  import TicTacToe, only: [debug: 1, info: 1], warn: false
   alias TicTacToe.Game
   alias TicTacToe.Grid
   alias TicTacToe.Player
@@ -10,6 +11,9 @@ defmodule TicTacToe.Console do
 
   def init(state) do
     Process.send(__MODULE__, :process_command, [])
+
+    info("The console started.")
+
     {:ok, state}
   end
 
