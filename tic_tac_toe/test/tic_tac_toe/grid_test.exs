@@ -23,4 +23,40 @@ defmodule TicTacToe.GridTest do
       assert Grid.draw?(@draw_grid) == true
     end
   end
+
+  @grid1 [
+    [:o, :o, :o],
+    [:b, :x, :x],
+    [:b, :b, :b]
+  ]
+
+  @grid2 [
+    [:o, :b, :o],
+    [:o, :x, :x],
+    [:o, :b, :x]
+  ]
+
+  @grid3 [
+    [:x, :b, :o],
+    [:o, :x, :o],
+    [:o, :b, :x]
+  ]
+
+  describe "get_winner" do
+    test "勝敗がついていなければnilを返す" do
+      assert Grid.get_winner(@playing_grid) == nil
+    end
+
+    test "横一列を埋めてOの勝ち" do
+      assert Grid.get_winner(@grid1) == :o
+    end
+
+    test "縦一列を埋めてOの勝ち" do
+      assert Grid.get_winner(@grid2) == :o
+    end
+
+    test "斜め一列を埋めてXの勝ち" do
+      assert Grid.get_winner(@grid3) == :x
+    end
+  end
 end
