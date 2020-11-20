@@ -29,6 +29,14 @@ defmodule TicTacToe.Console do
   def handle_info(:process_command, state) do
     refresh_screen()
 
+    human_turn()
+
+    judge_result()
+    Process.send(__MODULE__, :process_command, [])
+    {:noreply, state}
+  end
+
+  defp human_turn do
     move =
       get_prompt()
       |> IO.gets()
@@ -40,10 +48,6 @@ defmodule TicTacToe.Console do
       {x, y} when is_integer(x) and is_integer(y) -> move(x, y)
       _ -> Game.set_last_error("Syntax error.")
     end
-
-    judge_result()
-    Process.send(__MODULE__, :process_command, [])
-    {:noreply, state}
   end
 
   defp get_prompt do
