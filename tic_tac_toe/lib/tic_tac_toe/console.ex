@@ -6,7 +6,16 @@ defmodule TicTacToe.Console do
   alias TicTacToe.Player
 
   def start_link(_arg) do
-    GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
+    mode =
+      case System.get_env("GAME_MODE") do
+        "1" -> :human_vs_human
+        "2" -> :human_vs_computer
+        _ -> :human_vs_human
+      end
+
+    info("The console started.")
+
+    GenServer.start_link(__MODULE__, %{mode: mode}, name: __MODULE__)
   end
 
   def init(state) do
