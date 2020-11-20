@@ -10,6 +10,7 @@ defmodule TicTacToe.Console do
       case System.get_env("GAME_MODE") do
         "1" -> :human_vs_human
         "2" -> :human_vs_computer
+        "3" -> :computer_vs_computer
         _ -> :human_vs_human
       end
 
@@ -33,6 +34,7 @@ defmodule TicTacToe.Console do
       {:human_vs_human, _} -> human_turn()
       {:human_vs_computer, :o} -> human_turn()
       {:human_vs_computer, :x} -> computer_turn()
+      {:computer_vs_computer, _} -> computer_turn()
     end
 
     judge_result()
