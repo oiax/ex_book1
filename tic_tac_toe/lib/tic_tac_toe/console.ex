@@ -1,6 +1,6 @@
 defmodule TicTacToe.Console do
   use GenServer
-  import TicTacToe, only: [debug: 1, info: 1], warn: false
+  import TicTacToe, only: [info: 1, debug: 2], warn: false
   alias TicTacToe.Game
   alias TicTacToe.Grid
   alias TicTacToe.Player
@@ -14,8 +14,6 @@ defmodule TicTacToe.Console do
         _ -> :human_vs_human
       end
 
-    info("The console started.")
-
     GenServer.start_link(__MODULE__, %{mode: mode}, name: __MODULE__)
   end
 
@@ -23,6 +21,7 @@ defmodule TicTacToe.Console do
     Process.send(__MODULE__, :process_command, [])
 
     info("The console started.")
+    debug("state", state)
 
     {:ok, state}
   end
