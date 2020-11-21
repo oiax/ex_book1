@@ -8,3 +8,4 @@ RUN useradd -u $UID -g devel -m devel
 COPY --chown=devel:devel . /ex_book1
 USER devel
 WORKDIR /ex_book1
+RUN mix local.hex --force
