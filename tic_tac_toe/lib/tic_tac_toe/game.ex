@@ -1,6 +1,6 @@
 defmodule TicTacToe.Game do
   use Agent
-  import TicTacToe, only: [debug: 1, info: 1], warn: false
+  import TicTacToe, only: [info: 1, debug: 2], warn: false
   alias TicTacToe.Player
 
   @initial_grid [

@@ -1,6 +1,6 @@
 import Config
 
 config :logger,
-  backends: [{LoggerFileBackend, :error_log}]
+  backends: [{LoggerFileBackend, :application_log}]
 
-config :logger, :error_log, path: "logs/error.log"
+config :logger, :application_log, path: "logs/#{Mix.env}.log"
