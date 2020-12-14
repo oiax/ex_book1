@@ -7,4 +7,4 @@ y =
     :odd
   end
 
-IO.inspect y
+IO.inspect(y)

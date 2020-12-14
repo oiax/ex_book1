@@ -7,5 +7,5 @@ for i <- 1..20 do
       true -> i
     end
 
-  IO.puts v
+  IO.puts(v)
 end
